@@ -1,7 +1,11 @@
-import pygame, time, sys, win32gui, win32con, button
+import pygame, time, sys, win32gui, win32con
+
+import gamestate
+from button import Button
+from gamestate import GameState
 
 from pygame import mixer
-from pygame.locals import *
+
 
 from random import randint
 
@@ -13,39 +17,37 @@ screen = pygame.display.set_mode((10, 10), pygame.RESIZABLE)
 hwnd = win32gui.GetForegroundWindow()
 win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
 
-mixer.init()
+start_menu = GameState("start_menu", '')
+test_battle = GameState("test_battle", '')
 
-game_state = {"start_menu": True}
+clock = pygame.time.Clock()
+
+
+#Placeholder start menu stuff:
+button_img = pygame.image.load("assets/images/ui/buttons/button_placeholder.png").convert_alpha()
+normal_button = Button(width / 2, 120, 1.8, "Normal", button_img, screen, taille_texte=40)
+
 
 def get_screen():
     return screen
 
-def set_game_state(new_game_state):
-    global game_state
-    if new_game_state in game_state:
-        game_state = {key: False if key != new_game_state else True for key in game_state}
-    else:
-        print("Tried to change to a gamestate that doesn't exist !")
 
 
-def play_sound(name, volume):
-    mixer.music.load(name)
-    mixer.music.set_volume(volume)
-    mixer.music.play()
 
-
-def place_text(x, y, text, size, color=None):
-    font = pygame.font.Font(pygame.font.get_default_font(), size)
-    if color:
-        text = font.render(text, True, color)
-    else:
-        text = font.render(text, True, (150, 150, 150))
-    fenetre.blit(text, text.get_rect(center=(x, y)))
-
-while True:
+def event_manager():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.display.quit()
             sys.exit()
+
+start_menu.enable()
+while True:
+    screen.fill((50, 50, 255))
+    event_manager()
+    if start_menu.is_enabled():
+        if normal_button.draw():
+            test_battle.enable()
+
+    clock.tick(60)
     pygame.display.flip()
 
