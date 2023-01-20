@@ -1,13 +1,7 @@
-import pygame, time, sys, win32gui, win32con
+import pygame, sys, win32gui, win32con
 
-import gamestate
-from button import Button
-from gamestate import GameState
-
-from pygame import mixer
-
-
-from random import randint
+from utils.button import Button
+from utils.gamestate import GameState
 
 # Setup la fenêtre Pygame
 pygame.init()
