@@ -1,7 +1,9 @@
 import pygame, sys, win32gui, win32con
 
-from utils.button import Button
-from utils.gamestate import GameState
+from scripts.utils.button import Button
+from scripts.utils.gamestate import GameState
+from scripts.entities.player import Player
+from items.equipments.armor import *
 
 # Setup la fenêtre Pygame
 pygame.init()
@@ -21,11 +23,12 @@ clock = pygame.time.Clock()
 button_img = pygame.image.load("assets/images/ui/buttons/button_placeholder.png").convert_alpha()
 normal_button = Button(width / 2, 120, 1.8, "Normal", button_img, screen, taille_texte=40)
 
+player = Player("gladius", screen, 1, 1, 1, 1, 1, 1, 0)
+
+
 
 def get_screen():
     return screen
-
-
 
 
 def event_manager():
@@ -33,6 +36,7 @@ def event_manager():
         if event.type == pygame.QUIT:
             pygame.display.quit()
             sys.exit()
+
 
 start_menu.enable()
 while True:

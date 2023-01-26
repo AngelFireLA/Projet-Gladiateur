@@ -1,7 +1,7 @@
-from Items.equipments.hand_held.shields.shield import Shield
-from Items.equipments.hand_held.weapons.weapon import Weapon
-from Items.equipments.armor.armor import Armor
-from Items.potions import Potion
+from scripts.items.equipments.hand_held.shields.shield import Shield
+from scripts.items.equipments.hand_held.weapons.weapon import Weapon
+from scripts.items.equipments.armor.armor import Armor
+from scripts.items.potions import Potion
 
 
 class Player:
@@ -20,7 +20,6 @@ class Player:
         self.wins = 0
         self.items = []
         self.equipped = {
-            "helmet": None,
             "chestplate": None,
             "leggings": None,
             "boots": None,
@@ -29,25 +28,12 @@ class Player:
             "potions": []
         }
 
-    def move(self, direction):
-        # move player sprite in the specified direction
-        pass
-
-    def attack(self):
-        # handle player attacking
-        pass
-
-    def use_potion(self, potion_index):
-        # use specified potion
-        if self.equipments["potions"][potion_index]:
-            self.equipments["potions"][potion_index].use()
-            self.equipments["potions"][potion_index] = None
 
     def check_slots(self):
         # check if each of these slots have something equipped in them
-        for part, equipment in self.equipments.items():
+        for part, equipment in self.equipped.items():
             if equipment:
-                print(f"{part} slot is equipped with {equipment.name}")
+                print(f"{part} slot is equipped with {equipment.name} of id {equipment.id}")
             else:
                 print(f"{part} slot is empty")
 
@@ -63,15 +49,6 @@ class Player:
         # increase player level based on stats
         pass
 
-    def win(self, prize_money):
-        # increase player money and popularity for winning
-        self.money += prize_money
-        self.popularity += 1
-        self.wins += 1
-
-    def lose(self):
-        # decrease player popularity for losing
-        self.popularity -= 1
 
     def add_item(self, item):
         #Add an item to the player's inventory
@@ -95,7 +72,8 @@ class Player:
             elif isinstance(item, Shield):
                 self.equipped['shield'] = item
             elif isinstance(item, Armor):
-                self.equipped[item.part] = item
+                if item.slot in self.equipped:
+                    self.equipped[item.slot] = item
             elif isinstance(item, Potion):
                 if len(self.equipped["potions"]) < 3:
                     self.equipped["potions"].append(item)
@@ -114,7 +92,7 @@ class Player:
             elif isinstance(item, Shield):
                 self.equipped['shield'] = None
             elif isinstance(item, Armor):
-                self.equipped[item.part] = None
+                self.equipped[item.slot] = None
             else:
                 print(f"{item.name} of id {item.id} is not a valid item to equip in any slot.")
             return True
@@ -124,5 +102,8 @@ class Player:
         else:
             print(f"{item.name} of id {item.id} was not equipped.")
         return False
+
+    def show_inventory(self):
+        print(self.equipped)
 
 

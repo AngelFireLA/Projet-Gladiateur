@@ -1,5 +1,4 @@
-from Items.item import Item
-from Items.equipments.hand_held.weapons.weapon import Weapon
+from scripts.items.equipments.hand_held.weapons.weapon import Weapon
 
 
 class Buster(Weapon):

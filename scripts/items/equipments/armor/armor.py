@@ -1,4 +1,4 @@
-from Items.item import Item
+from scripts.items.item import Item
 
 
 class Armor(Item):
@@ -9,7 +9,7 @@ class Armor(Item):
         self.defense = defense
         self.quality_name = quality
         self.quality = self.set_quality(quality)
-        self.armor_type = ""
+        self.slot = "boots"
 
     def set_quality(self, quality):
         if quality in self.quality_levels:

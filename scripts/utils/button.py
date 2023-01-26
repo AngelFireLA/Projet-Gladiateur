@@ -1,5 +1,5 @@
 import pygame
-from utils import essential_functions
+from scripts.utils import essential_functions
 
 
 class Button:

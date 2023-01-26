@@ -1,4 +1,4 @@
-from Items.item import Item
+from scripts.items.item import Item
 
 
 class Potion(Item):
