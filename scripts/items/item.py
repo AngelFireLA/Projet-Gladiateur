@@ -11,8 +11,5 @@ class Item():
         self.is_equipped = False
         #self.surface = pygame.image.load(image).convert_alpha()
 
-    def equip(self):
-        self.is_equipped = True
-
-    def unequip(self):
-        self.is_equipped = False
+    def is_equipped(self, value: bool):
+        self.is_equipped = value

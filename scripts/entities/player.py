@@ -2,6 +2,7 @@ from scripts.items.equipments.hand_held.shields.shield import Shield
 from scripts.items.equipments.hand_held.weapons.weapon import Weapon
 from scripts.items.equipments.armor.armor import Armor
 from scripts.items.potions import Potion
+from scripts.items import item
 
 
 class Player:
@@ -104,6 +105,10 @@ class Player:
         return False
 
     def show_inventory(self):
-        print(self.equipped)
+        for k, v in self.equipped.items():
+            if isinstance(v, item.Item):
+                print(f'{k.upper()} : {v.name}')
+            else:
+                print(f'{k.upper()} : {v}')
 
 

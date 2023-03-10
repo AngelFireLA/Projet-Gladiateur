@@ -3,7 +3,7 @@ import pygame, sys, win32gui, win32con
 from scripts.utils.button import Button
 from scripts.utils.gamestate import GameState
 from scripts.entities.player import Player
-from items.equipments.armor import *
+from scripts.items.equipments.armor import chestplate, armor, leggings, boots
 
 # Setup la fenêtre Pygame
 pygame.init()
@@ -25,8 +25,10 @@ normal_button = Button(width / 2, 120, 1.8, "Normal", button_img, screen, taille
 
 player = Player("gladius", screen, 1, 1, 1, 1, 1, 1, 0)
 
-
-
+ches = chestplate.Chestplate("Iron Chestplate", 10, None, 10, "bronze")
+player.add_item(ches)
+player.equip_item(ches)
+player.show_inventory()
 def get_screen():
     return screen
 
@@ -45,7 +47,6 @@ while True:
     if start_menu.is_enabled():
         if normal_button.draw():
             test_battle.enable()
-
     clock.tick(60)
     pygame.display.flip()
 
